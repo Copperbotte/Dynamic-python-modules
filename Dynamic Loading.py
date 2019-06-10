@@ -1,16 +1,13 @@
 import os
 mods = []
 
-print("-----Files-----")
+#filter python files from a folder
 for x in os.listdir("Modules"):
-    print(x)
     if x[-3:] == ".py":
-        mods.append(x)
+        mods.append(x[:-3])
 
-print("\n-----Modules-----")
-print(mods)
-
-print("\n-----Loading-----")
-__import__("Modules", fromlist=mods)
-
-        
+#import filtered files
+#filtered files self-register with the __register_plugin__ function
+modules = __import__("Modules", globals(), locals(), mods, 0)
+for m in mods:
+    getattr(modules, m).register()
