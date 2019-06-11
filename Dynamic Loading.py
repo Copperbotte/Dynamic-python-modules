@@ -1,11 +1,9 @@
 import os
-mods = []
+
 funcs = dict()
 
 #filter python files from a folder
-for x in os.listdir("Modules"):
-    if x[-3:] == ".py":
-        mods.append(x[:-3])
+mods = [x for x in os.listdir() if x[-3:] == '.py']
 
 #import filtered files
 #filtered files self-register with the __register_plugin__ function
