@@ -1,5 +1,6 @@
 import os
 mods = []
+funcs = dict()
 
 #filter python files from a folder
 for x in os.listdir("Modules"):
@@ -10,4 +11,8 @@ for x in os.listdir("Modules"):
 #filtered files self-register with the __register_plugin__ function
 modules = __import__("Modules", globals(), locals(), mods, 0)
 for m in mods:
-    getattr(modules, m).register()
+    name, func = getattr(modules, m).register()
+    funcs[name] = func
+    globals()[name] = func
+
+
